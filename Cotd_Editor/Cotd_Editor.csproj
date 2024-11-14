@@ -8,4 +8,28 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="Imgs\Cards\CardBase.png" />
+    <None Remove="Imgs\Cards\CommandCard\CommandSymbol.png" />
+    <None Remove="Imgs\Name.png" />
+    <None Remove="Imgs\NameUnit.png" />
+    <None Remove="Imgs\SeaSerpent.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Logic\Cotd_Logic\Cotd_Logic.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Imgs\Cards\CardBase.png" />
+    <Resource Include="Imgs\Cards\CommandCard\CommandSymbol.png" />
+    <Resource Include="Imgs\Cards\Name.png" />
+    <Resource Include="Imgs\Cards\CommandCard\SplashArt\SeaSerpent.png" />
+    <Resource Include="Imgs\NameUnit.png" />
+  </ItemGroup>
+
 </Project>
