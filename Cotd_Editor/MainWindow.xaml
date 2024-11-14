@@ -3,10 +3,361 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Cotd_Editor"
+        xmlns:local="clr-namespace:Cotd_Editor.UI"
+        xmlns:vm="clr-namespace:Cotd_Editor.VM"
+        xmlns:m="clr-namespace:Cotd_Editor.Models.Cards"
+        xmlns:c="clr-namespace:Cotd_Editor.Converters"
+        xmlns:system="clr-namespace:System;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="MainWindow" Height="720" Width="1080">
+    <Window.Resources>
+        <vm:CardEditorViewModel x:Key="EditVM"/>
+        <DataTemplate x:Key="CardListTemplate" DataType="{x:Type m:CardModel}">
+            <StackPanel>
+                <Label Content="{Binding Name}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
 
+    <Grid DataContext="{StaticResource EditVM}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="250"/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1" Grid.Column="0">
+                <ListBox x:Name="CardListBox"
+                           ItemsSource="{Binding Cards}"
+                           ItemTemplate="{StaticResource CardListTemplate}"
+                           SelectedItem="{Binding SelectedCard}">
+                </ListBox>
+            </Grid>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0">
+                    <ContentControl Content="{Binding SelectedCard}">
+                        <ContentControl.Resources>
+
+                            <!--DataTemplate for CommandCardModel-->
+                            <DataTemplate DataType="{x:Type m:CommandCardModel}">
+                                <StackPanel>
+                                    <TextBlock Text="Name" Margin="10"/>
+                                    <TextBlock Text="Image" Margin="10"/>
+                                    <TextBlock Text="Description" Margin="10"/>
+                                    <TextBlock Text="EnvoyCost" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <!--DataTemplate for ConstructionCard-->
+                            <DataTemplate DataType="{x:Type m:ConstructionCardModel}">
+                                <StackPanel>
+                                    <TextBlock Text="Name" Margin="10"/>
+                                    <TextBlock Text="Image" Margin="10"/>
+                                    <TextBlock Text="Description" Margin="10"/>
+                                    <TextBlock Text="EnvoyCost" Margin="10"/>
+                                    <TextBlock Text="Armor" Margin="10"/>
+                                    <TextBlock Text="Power" Margin="10"/>
+                                    <TextBlock Text="TurnsToBuild" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <!--DataTemplate for DreamCard-->
+                            <DataTemplate DataType="{x:Type m:DreamCardModel}">
+                                <StackPanel>
+                                    <TextBlock Text="Name" Margin="10"/>
+                                    <TextBlock Text="Image" Margin="10"/>
+                                    <TextBlock Text="Description" Margin="10"/>
+                                    <TextBlock Text="EnvoyCost" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <!--DataTemplate for FireCard-->
+                            <DataTemplate DataType="{x:Type m:FireCardModel}">
+                                <StackPanel>
+                                    <TextBlock Text="Name" Margin="10"/>
+                                    <TextBlock Text="Image" Margin="10"/>
+                                    <TextBlock Text="Description" Margin="10"/>
+                                    <TextBlock Text="EnvoyCost" Margin="10"/>
+                                    <TextBlock Text="FireCost" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <!--DataTemplate for UnitCardModel-->
+                            <DataTemplate DataType="{x:Type m:UnitCardModel}">
+                                <StackPanel>
+                                    <TextBlock Text="Name" Margin="10"/>
+                                    <TextBlock Text="Image" Margin="10"/>
+                                    <TextBlock Text="Description" Margin="10"/>
+                                    <TextBlock Text="EnvoyCost" Margin="10"/>
+                                    <TextBlock Text="Health" Margin="10"/>
+                                    <TextBlock Text="Armor" Margin="10"/>
+                                    <TextBlock Text="Power" Margin="10"/>
+                                    <TextBlock Text="TurnsToFormation" Margin="10"/>
+                                    <TextBlock Text="Type" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <!--DataTemplate for WeatherCard-->
+                            <DataTemplate DataType="{x:Type m:WeatherCardModel}">
+                                <StackPanel>
+                                    <TextBlock Text="Name" Margin="10"/>
+                                    <TextBlock Text="Image" Margin="10"/>
+                                    <TextBlock Text="Description" Margin="10"/>
+                                    <TextBlock Text="EnvoyCost" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <ContentControl Content="{Binding SelectedCard}">
+                        <ContentControl.Resources>
+                            <!--DataTemplate for CommandCardModel-->
+                            <DataTemplate DataType="{x:Type m:CommandCardModel}">
+                                <StackPanel>
+                                    <TextBox Text="{Binding Name}" Margin="10"/>
+                                    <TextBox Text="{Binding Image}" Margin="10"/>
+                                    <TextBox Text="{Binding Description}" Margin="10"/>
+                                    <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <!--DataTemplate for ConstructionCardModel-->
+                            <DataTemplate DataType="{x:Type m:ConstructionCardModel}">
+                                <StackPanel>
+                                    <TextBox Text="{Binding Name}" Margin="10"/>
+                                    <TextBox Text="{Binding Image}" Margin="10"/>
+                                    <TextBox Text="{Binding Description}" Margin="10"/>
+                                    <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                                    <TextBox Text="{Binding Armor}" Margin="10"/>
+                                    <TextBox Text="{Binding Power}" Margin="10"/>
+                                    <TextBox Text="{Binding TurnsToBuild}" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <!--DataTemplate for DreamCardModel-->
+                            <DataTemplate DataType="{x:Type m:DreamCardModel}">
+                                <StackPanel>
+                                    <TextBox Text="{Binding Name}" Margin="10"/>
+                                    <TextBox Text="{Binding Image}" Margin="10"/>
+                                    <TextBox Text="{Binding Description}" Margin="10"/>
+                                    <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <!--DataTemplate for FireCardModel-->
+                            <DataTemplate DataType="{x:Type m:FireCardModel}">
+                                <StackPanel>
+                                    <TextBox Text="{Binding Name}" Margin="10"/>
+                                    <TextBox Text="{Binding Image}" Margin="10"/>
+                                    <TextBox Text="{Binding Description}" Margin="10"/>
+                                    <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                                    <TextBox Text="{Binding FireCost}" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <!--DataTemplate for UnitCardModel-->
+                            <DataTemplate DataType="{x:Type m:UnitCardModel}">
+                                <StackPanel>
+                                    <TextBox Text="{Binding Name}" Margin="10"/>
+                                    <TextBox Text="{Binding Image}" Margin="10"/>
+                                    <TextBox Text="{Binding Description}" Margin="10"/>
+                                    <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                                    <TextBox Text="{Binding Health}" Margin="10"/>
+                                    <TextBox Text="{Binding Armor}" Margin="10"/>
+                                    <TextBox Text="{Binding Power}" Margin="10"/>
+                                    <TextBox Text="{Binding TurnsToFormation}" Margin="10"/>
+                                    <TextBox Text="{Binding Type}" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+
+                            <!--DataTemplate for WeatherCardModel-->
+                            <DataTemplate DataType="{x:Type m:WeatherCardModel}">
+                                <StackPanel>
+                                    <TextBox Text="{Binding Name}" Margin="10"/>
+                                    <TextBox Text="{Binding Image}" Margin="10"/>
+                                    <TextBox Text="{Binding Description}" Margin="10"/>
+                                    <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ContentControl.Resources>
+                    </ContentControl>
+                </Grid>
+            </Grid>
+            <Grid Grid.Column="2" Margin="0,-26,0,25" >
+                <ContentControl  Content="{Binding SelectedCard}">
+                    <ContentControl.Resources>
+                        <!--DataTemplate for CommandCardModel-->
+                        <DataTemplate DataType="{x:Type m:CommandCardModel}">
+                            <Canvas>
+                                <Image Source="/Imgs/Cards/CardBase.png" Width="393" Height="614"/>
+                                <Rectangle RadiusX="30" RadiusY="30" Width="329" Height="259" Stroke="#27323A" StrokeThickness="4" Canvas.Left="32" Canvas.Top="68">
+                                    <Rectangle.Fill>
+                                        <ImageBrush ImageSource="/Imgs/Cards/CommandCard/SplashArt/SeaSerpent.png"/>
+                                    </Rectangle.Fill>
+                                </Rectangle>
+                                <Image Source="/Imgs/Cards/Name.png" Width="214" Height="52" Canvas.Left="90" Canvas.Top="35" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                                <Image Source="/Imgs/Cards/CommandCard/CommandSymbol.png" Height="50" Width="50" Canvas.Left="171" Canvas.Top="308"/>
+
+                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" HorizontalAlignment="Left" FontSize="18" Canvas.Left="155" Canvas.Top="49"/>
+                                <TextBlock Text="{Binding Description}" VerticalAlignment="Top" HorizontalAlignment="Left" FontSize="18" Canvas.Left="127" Canvas.Top="449"/>
+                                
+                            </Canvas>
+                        </DataTemplate>
+
+                        <!--DataTemplate for ConstructionCardModel-->
+                        <DataTemplate DataType="{x:Type m:ConstructionCardModel}">
+                            <StackPanel>
+                                <TextBox Text="{Binding Name}" Margin="10"/>
+                                <TextBox Text="{Binding Image}" Margin="10"/>
+                                <TextBox Text="{Binding Description}" Margin="10"/>
+                                <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                                <TextBox Text="{Binding Armor}" Margin="10"/>
+                                <TextBox Text="{Binding Power}" Margin="10"/>
+                                <TextBox Text="{Binding TurnsToBuild}" Margin="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <!--DataTemplate for DreamCardModel-->
+                        <DataTemplate DataType="{x:Type m:DreamCardModel}">
+                            <StackPanel>
+                                <TextBox Text="{Binding Name}" Margin="10"/>
+                                <TextBox Text="{Binding Image}" Margin="10"/>
+                                <TextBox Text="{Binding Description}" Margin="10"/>
+                                <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <!--DataTemplate for FireCardModel-->
+                        <DataTemplate DataType="{x:Type m:FireCardModel}">
+                            <StackPanel>
+                                <TextBox Text="{Binding Name}" Margin="10"/>
+                                <TextBox Text="{Binding Image}" Margin="10"/>
+                                <TextBox Text="{Binding Description}" Margin="10"/>
+                                <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                                <TextBox Text="{Binding FireCost}" Margin="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <!--DataTemplate for UnitCardModel-->
+                        <DataTemplate DataType="{x:Type m:UnitCardModel}">
+                            <StackPanel>
+                                <TextBox Text="{Binding Name}" Margin="10"/>
+                                <TextBox Text="{Binding Image}" Margin="10"/>
+                                <TextBox Text="{Binding Description}" Margin="10"/>
+                                <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                                <TextBox Text="{Binding Health}" Margin="10"/>
+                                <TextBox Text="{Binding Armor}" Margin="10"/>
+                                <TextBox Text="{Binding Power}" Margin="10"/>
+                                <TextBox Text="{Binding TurnsToFormation}" Margin="10"/>
+                                <TextBox Text="{Binding Type}" Margin="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+
+                        <!--DataTemplate for WeatherCardModel-->
+                        <DataTemplate DataType="{x:Type m:WeatherCardModel}">
+                            <StackPanel>
+                                <TextBox Text="{Binding Name}" Margin="10"/>
+                                <TextBox Text="{Binding Image}" Margin="10"/>
+                                <TextBox Text="{Binding Description}" Margin="10"/>
+                                <TextBox Text="{Binding EnvoyCost}" Margin="10"/>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ContentControl.Resources>
+                </ContentControl>
+            </Grid>
+        </Grid>
     </Grid>
+
+
+
+
+    <!--<Grid DataContext="{StaticResource EditVM}">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <RadioButton Content="Card" IsChecked="{Binding IsCardSelected}" Margin="5"/>
+                    <RadioButton Content="Effect Card" IsChecked="{Binding IsEffectCardSelected}" Margin="5"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <ListBox x:Name="CardListBox"
+                             ItemsSource="{Binding Cards}"
+                             ItemTemplate="{StaticResource CardListTemplate}"
+                             SelectedItem="{Binding SelectedCard}"
+                             >
+                    </ListBox>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="1" Margin="50 0 0 0" Text="Name:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Margin="50 0 0 0" Text="Image:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="3" Margin="50 0 0 0" Text="Cost:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="4" Margin="50 0 0 0" Text="Description:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="5" Margin="50 0 0 0" Text="Effects:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="6" Margin="50 0 0 0" Text="Turns to formation:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center">
+                        <TextBlock.Visibility>
+                            <Binding Path="SelectedCard.TurnsToFormation" 
+                                     Converter="{StaticResource NullToVisibilityConverter}">
+                            </Binding>
+                        </TextBlock.Visibility>
+                    </TextBlock>
+
+                    <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="5" Text="{Binding Path=SelectedCard.Name, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Width="130"/>
+                    <TextBox Grid.Row="6" Grid.Column="1" HorizontalAlignment="Center" Margin="5" Text="{Binding Path=SelectedCard.TurnsToFormation, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Width="130">
+                        <TextBox.Visibility>
+                            <Binding Path="SelectedCard.TurnsToFormation"
+                                     Converter="{StaticResource NullToVisibilityConverter}">
+                            </Binding>
+
+                        </TextBox.Visibility>
+                    </TextBox>
+                    <TextBox Grid.Row="7" Grid.Column="1" HorizontalAlignment="Center" Margin="5" Text="{Binding Path=SelectedCard.TurnsToFormation, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Width="130"
+                             Visibility="{Binding IsUnitCardSelected, Converter={StaticResource BoolToVisibilityConverter}}">
+
+                    </TextBox>
+                    <TextBox Grid.Row="8" Grid.Column="1" HorizontalAlignment="Center" Margin="5" 
+                                Text="{Binding SelectedCard.TurnsToFormation}" 
+                                VerticalAlignment="Center" Width="130">
+                        <TextBox.Visibility>
+                            <Binding Path="SelectedCard.TurnsToFormation" 
+                                Converter="{StaticResource NullToVisibilityConverter}" />
+                        </TextBox.Visibility>
+                    </TextBox>
+                </Grid>
+            </Grid>
+        </Grid>-->
 </Window>
