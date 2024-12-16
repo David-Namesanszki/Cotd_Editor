@@ -26,7 +26,7 @@ public class UnitCardModel : CardModel
 		_armor = card.Armor;
 		_health = card.Health;
 		_power = card.Power;
-		_type = (UnitTypes)card.Type;
+		_type = (UnitTypes)card.UnitType;
 	}
 
 	public int TurnsToFormation

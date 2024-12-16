@@ -1,0 +1,78 @@
+﻿<Window x:Class="Cotd_Editor.UI.EditorWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Cotd_Editor.UI"
+        xmlns:vm="clr-namespace:Cotd_Editor.VM"
+        xmlns:m="clr-namespace:Cotd_Editor.Models.Cards"
+        mc:Ignorable="d"
+        Title="EditorWindow" Height="720" Width="1080">
+    <Window.Resources>
+        <vm:CardEditorViewModel x:Key="EditVM"/>
+        <DataTemplate x:Key="CardListTemplate" DataType="{x:Type m:CardModel}">
+            <StackPanel>
+                <Label Content="{Binding Name}"/>
+            </StackPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+
+
+        <Grid DataContext="{StaticResource EditVM}">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="40"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="0">
+                <StackPanel Orientation="Horizontal" Margin="5">
+                    <RadioButton Content="Card" IsChecked="{Binding IsCardSelected}" Margin="5"/>
+                    <RadioButton Content="Unit Card" IsChecked="{Binding IsUnitCardSelected}" Margin="5"/>
+                    <RadioButton Content="Effect Card" IsChecked="{Binding IsEffectCardSelected}" Margin="5"/>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Grid.Row="1">
+                    <ListBox x:Name="CardListBox"
+                             ItemsSource="{Binding Cards}"
+                             ItemTemplate="{StaticResource CardListTemplate}"
+                             SelectedItem="{Binding SelectedCard}"
+                             SelectionChanged="CardListBox_SelectionChanged"
+                             >
+                    </ListBox>
+                </Grid>
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="1" Margin="50 0 0 0" Text="Name:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="2" Margin="50 0 0 0" Text="Image:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="3" Margin="50 0 0 0" Text="Cost:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="4" Margin="50 0 0 0" Text="Description:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+                    <TextBlock Grid.Row="5" Margin="50 0 0 0" Text="Effects:" TextWrapping="Wrap" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+
+                    <TextBox Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Margin="5" Text="{Binding Path=SelectedCard.Name, Mode=TwoWay}" TextWrapping="Wrap" VerticalAlignment="Center" Width="130"/>
+                </Grid>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>
